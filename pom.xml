@@ -3,4 +3,86 @@
   <groupId>app.cleancode</groupId>
   <artifactId>java-chromium-test</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+  <java.version>16</java.version>
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <jcef.version>84.3.8+gc8a556f+chromium-84.0.4147.105-build-9</jcef.version>
+  <jcef.natives.version>84.3.8+gc8a556f+chromium-84.0.4147.105</jcef.natives.version>
+  </properties>
+  
+  <repositories>
+      <repository>
+        <id>jcef-maven</id>
+        <name>JCef Maven Repository</name>
+        <url>https://friwi.me/jcef/maven</url>
+    </repository>
+  </repositories>
+  
+  <profiles>
+  <profile>
+  <id>jcef-linux-amd64</id>
+  <activation>
+  <os>
+  <family>unix</family>
+  <arch>amd64</arch>
+  </os>
+  </activation>
+  <properties>
+  <jcef.natives>linux64</jcef.natives>
+  </properties>
+  </profile>
+  <profile>
+  <id>jcef-macos-amd64</id>
+  <activation>
+  <os>
+  <family>mac</family>
+  <arch>amd64</arch>
+  </os>
+  </activation>
+  <properties>
+  <jcef.natives>macosx64</jcef.natives>
+  </properties>
+  </profile>
+  <profile>
+  <id>jcef-win64</id>
+  <activation>
+  <os>
+  <family>windows</family>
+  <arch>amd64</arch>
+  </os>
+  </activation>
+  <properties>
+  <jcef.natives>win64</jcef.natives>
+  </properties>
+  </profile>
+  </profiles>
+  
+  <dependencies>
+  <dependency>
+  <groupId>org.cef</groupId>
+  <artifactId>jcef</artifactId>
+  <version>${jcef.version}</version>
+  </dependency>
+  <dependency>
+  <groupId>org.cef</groupId>
+  <artifactId>jcef-natives-${jcef.natives}</artifactId>
+  <version>${jcef.natives.version}</version>
+  </dependency>
+  </dependencies>
+  
+  <build>
+  <plugins>
+  <plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-compiler-plugin</artifactId>
+  <version>3.8.1</version>
+  <configuration>
+  <target>${java.version}</target>
+  <source>${java.version}</source>
+  <release>${java.version}</release>
+  </configuration>
+  </plugin>
+  </plugins>
+  </build>
 </project>
